@@ -1,32 +1,5 @@
 {
-  "name": "codesquad-comics-server",
-  "version": "1.0.0",
-  "description": "comics project",
-  "main": "index.js",
-  "scripts": {
-  "test": "echo \"Error: no test specified\" && exit 1",
-  "dev": "nodemon app.js"
- },
-  // "scripts": {
-  //   "test": "echo \"Error: no test specified\" && exit 1"
-  // },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/kerabram/codesquad-comics-server.git"
-  },
-  "author": "Kera B",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/kerabram/codesquad-comics-server/issues"
-  },
-  "homepage": "https://github.com/kerabram/codesquad-comics-server#readme",
   "dependencies": {
-    "cors": "^2.8.5",
-    "express": "^5.1.0",
-    "helmet": "^8.1.0"
-  },
-  "devDependencies": {
-    "morgan": "^1.10.0",
-    "nodemon": "^3.1.10"
+    "mongodb": "^6.16.0"
   }
 }
