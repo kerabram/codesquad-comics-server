@@ -1,13 +1,14 @@
 require("dotenv").config();//summon the dotenv library
 require("./config/connection")//use the connection to the database
 require("./config/authStrategy")//use the authentication strategies from different applications for single sign on (SSO)
+
+
 //--- NEW: DATABASE CONNECTION CODE MUST BE ABOVE THIS LINE ---
 const express = require("express");
 const morgan = require("morgan");
 const path = require("node:path");
 const helmet = require("helmet"); //make sure you have helmet from this classwork on
 const cors = require("cors");
-
 //---PER 3 DATA STORAGE---
 //Summon mongoose after you installed it
 const mongoose = require("mongoose");
@@ -18,26 +19,41 @@ const PORT = process.env.PORT || 3000;
 
 
 app.use(helmet()); //make sure you have helmet from this classwork on
-
 app.use(morgan("dev"));
 app.use(cors({credentials: true, origin: true})); //NEW: allow cors' credentials and origin to be defined as true within an object as the parameter
 
 //Define the routing variable for authRoutes
-const booksRoutes = require('./routes/bookRoutes');
-const authRoutes = require('./routes/authRouter');
+// const booksRoutes = require('./routes/bookRoutes');
+// const authRoutes = require('./routes/authRouter');
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname + "/public")));
 
+//Tell the app to use the routing variables you defined earlier
+// app.use("/api/books", booksRoutes);
+// app.use("/auth", authRoutes);
 
+// const siteData = require('./data/siteData');
 app.get("/", (request, response, next) => {
-  response.status(200).json({success: {message: "This route points to the Home page"}, statusCode: 200});
+  response.status(200).json({success: {message: "This route points to the Home page"},
+});
+app .get("/api/books/", (request, response, next) => {
+  response.status(200).json({success: {message: "Book Catalog"}, statusCode: 200});
+});
+app.get("/api/books/:id", (request, response, next) => {
+  response.status(200).json({success: {message: `Book details for ID" }`}, statusCode: 200});
+});
+app.get("/api/books/create/new", (request, response, next) => {
+  response.status(200).json({success: {message: `Create a new book`}, statusCode: 200});
+});
+app.get("/api/books/update/:id", (request, response, next) => {
+  response.status(200).json({success: {message: "Update book details for ID" }, statusCode: 200});
 });
 
-//Tell the app to use the routing variables you defined earlier
-app.use("/api/books", booksRoutes);
-app.use("/auth", authRoutes);
+app.get("/api/books/delete/:id", (request, response, next) => {
+  response.status(200).json({success: {message: "Delete book details for ID" }, statusCode: 200});
+});
 
 //--- NEW: ERR HANDLING CODE MUST BE BELOW THIS LINE ---
 //NEW: error handling middle ware --> "Catch-all"
@@ -65,9 +81,9 @@ app.use((error, request, response, next) => {
 
     //Any other errors are caught
     //Return the status as the error's status or default to a 500 to reflect on the server side. 
-    return response.status(error.status || 500).json({
+    response.status(error.status || 500).json({
       error: {message: error.message || "Internal server error, oh no!"},
-      statusCode: error.status || 500
+      statusCode: error.status || 500,
     })
     //log the error message
 
@@ -75,6 +91,7 @@ app.use((error, request, response, next) => {
 })
 //----------
 app.listen(PORT, () => {
-  console.log(`CodeSquad Comic Book Server is listening on port ${PORT}`);
-  console.log(`http://localhost:${PORT}/`)
+  console.log(
+    `Server is listening on port ${PORT}. Use http://localhost:${PORT}/`
+  );
 });
