@@ -14,46 +14,23 @@ const cors = require("cors");
 const mongoose = require("mongoose");
 
 const app = express();
-//const PORT = 3000; //NEW: refactor to use the environmental variable method
 const PORT = process.env.PORT || 3000;
 
 
 app.use(helmet()); //make sure you have helmet from this classwork on
 app.use(morgan("dev"));
 app.use(cors({credentials: true, origin: true})); //NEW: allow cors' credentials and origin to be defined as true within an object as the parameter
+app.use(express.json());
+app.use(express.urlencoded({ extended: true })); 
+
 
 //Define the routing variable for authRoutes
-// const booksRoutes = require('./routes/bookRoutes');
-// const authRoutes = require('./routes/authRouter');
+const booksRoutes = require('./routes/bookRoutes');
+const authRoutes = require('./routes/authRouter');
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use(express.static(path.join(__dirname + "/public")));
 
-//Tell the app to use the routing variables you defined earlier
-// app.use("/api/books", booksRoutes);
-// app.use("/auth", authRoutes);
+const siteData = require('./data/siteData');
 
-// const siteData = require('./data/siteData');
-app.get("/", (request, response, next) => {
-  response.status(200).json({success: {message: "This route points to the Home page"},
-});
-app .get("/api/books/", (request, response, next) => {
-  response.status(200).json({success: {message: "Book Catalog"}, statusCode: 200});
-});
-app.get("/api/books/:id", (request, response, next) => {
-  response.status(200).json({success: {message: `Book details for ID" }`}, statusCode: 200});
-});
-app.get("/api/books/create/new", (request, response, next) => {
-  response.status(200).json({success: {message: `Create a new book`}, statusCode: 200});
-});
-app.get("/api/books/update/:id", (request, response, next) => {
-  response.status(200).json({success: {message: "Update book details for ID" }, statusCode: 200});
-});
-
-app.get("/api/books/delete/:id", (request, response, next) => {
-  response.status(200).json({success: {message: "Delete book details for ID" }, statusCode: 200});
-});
 
 //--- NEW: ERR HANDLING CODE MUST BE BELOW THIS LINE ---
 //NEW: error handling middle ware --> "Catch-all"
