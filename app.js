@@ -24,9 +24,13 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true })); 
 
 
+
 //Define the routing variable for authRoutes
 const booksRoutes = require('./routes/bookRoutes');
 const authRoutes = require('./routes/authRouter');
+
+app.use("/", booksRoutes);
+app.use("/auth", authRoutes);
 
 
 const siteData = require('./data/siteData');

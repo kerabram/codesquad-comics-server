@@ -3,9 +3,7 @@ const router = express.Router();
 
 const {getAllBooks, getBook, createBook,  updateBook, deleteBook} = require("../controllers/booksController");
 
-//Tell the app to use the routing variables you defined earlier
-app.use("/", booksRoutes);
-app.use("/auth", authRoutes);
+
 
 router.get("/", getAllBooks);
 router.get("/:id", getBook);
