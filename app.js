@@ -14,7 +14,7 @@ const cors = require("cors");
 const mongoose = require("mongoose");
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 8080;
 
 
 app.use(helmet()); //make sure you have helmet from this classwork on
