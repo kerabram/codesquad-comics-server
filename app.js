@@ -27,13 +27,13 @@ app.use(express.urlencoded({ extended: true }));
 
 //Define the routing variable for authRoutes
 const booksRoutes = require('./routes/bookRoutes');
-const authRoutes = require('./routes/authRouter');
+const authRoutes = require('./routes/authRoutes');
 
 app.use("/", booksRoutes);
 app.use("/auth", authRoutes);
 
 
-const siteData = require('./data/siteData');
+// const siteData = require('./data/siteData');
 
 
 //--- NEW: ERR HANDLING CODE MUST BE BELOW THIS LINE ---

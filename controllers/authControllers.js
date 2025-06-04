@@ -27,23 +27,30 @@ const login = async (req, res, next) => {
             success: { message: "User logged in" },
             statusCode: 200,
         });
-    }
-    const logout = async (req, res, next) => {
-        console.log("Initializing logout controller logic...");
-        console.log("session destroy");
-        response.clearCookie("connect.sid");
-        res.status(200).json({
-            success: { message: "User logged out" },
-            statusCode: 200,
+    } catch (error) {
+        res.status(500).json({
+            error: { message: "Internal server error!" },
+            statusCode: 500,
         });
-      function sessionDestruction(err) {
-    if (err) {
-      return next(err);
     }
-  }
-  sessionDestruction();
-  console.log("Logout function activated. logged out"); 
-    },
+};
+
+const logout = async (req, res, next) => {
+    console.log("Initializing logout controller logic...");
+    console.log("session destroy");
+    response.clearCookie("connect.sid");
+    res.status(200).json({
+        success: { message: "User logged out" },
+        statusCode: 200
+    });
+    function sessionDestruction(err) {
+        if (err) {
+            return next(err);
+        }
+    }
+    sessionDestruction();
+    console.log("Logout function activated. logged out");
+};
 
 const localLogin = async (req, res, next) => {
     let result = true;
